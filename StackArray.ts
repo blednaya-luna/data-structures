@@ -1,7 +1,7 @@
 class StackArray<T> {
     private items: T[];
 
-    constructor(items: T[] = []) {
+    constructor(items: readonly T[] = []) {
         this.items = [...items];
     }
     
@@ -29,7 +29,10 @@ class StackArray<T> {
         this.items = [];
     }
 
-    contains(item: T): boolean {
+    contains(item: T, equalsFn?: (a: T, b: T) => boolean): boolean {
+        if (equalsFn) {
+            return this.items.some((value) => equalsFn(value, item));
+        }
         return this.items.includes(item);
     }
 
@@ -37,11 +40,11 @@ class StackArray<T> {
         return [...this.items];
     }
 
-    static fromArray<U>(array: U[]): StackArray<U> {
-        return new StackArray([...array]);
+    static fromArray<U>(array: readonly U[]): StackArray<U> {
+        return new StackArray(array);
     }
 
     clone(): StackArray<T> {
-        return new StackArray([...this.items]);
+        return new StackArray(this.items);
     }
 };
