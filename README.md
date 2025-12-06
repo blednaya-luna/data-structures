@@ -51,12 +51,12 @@ A stack is a **LIFO (Last In, First Out)** data structure.
 ```ts
 import { StackArray, StackArrayWithSet } from './src';
 
-const stack = new StackArray<number>();
-stack.push(1);
-stack.push(2);
-console.log(stack.pop()); // 2
+const stackArray = new StackArray<number>();
+stackArray.push(1);
+stackArray.push(2);
+console.log(stackArray.pop()); // 2
 
-const stackSet = new StackArrayWithSet<string>();
-stackSet.push('a');
-stackSet.push('b');
-console.log(stackSet.contains('a')); // true
+const stackArrayWithSet = new StackArrayWithSet<string>();
+stackArrayWithSet.push('a');
+stackArrayWithSet.push('b');
+console.log(stackArrayWithSet.contains('a')); // true
