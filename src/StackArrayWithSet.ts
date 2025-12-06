@@ -1,4 +1,4 @@
-class StackArrayWithSet<T> {
+export class StackArrayWithSet<T> {
     private items: T[];
     private set: Set<T>;
 
