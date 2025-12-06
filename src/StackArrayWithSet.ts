@@ -53,4 +53,4 @@ export class StackArrayWithSet<T> {
     clone(): StackArrayWithSet<T> {
         return new StackArrayWithSet(this.items);
     }
-};
+}

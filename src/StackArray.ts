@@ -47,4 +47,4 @@ export class StackArray<T> {
     clone(): StackArray<T> {
         return new StackArray(this.items);
     }
-};
+}
