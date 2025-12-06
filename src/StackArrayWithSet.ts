@@ -21,14 +21,14 @@ export class StackArrayWithSet<T> {
     peek(): T | undefined {
         return this.items[this.items.length - 1];
     }
-    
-    isEmpty(): boolean {
-        return this.size() === 0;
-    }
 
     size(): number {
         return this.items.length;
-    }    
+    }
+
+    isEmpty(): boolean {
+        return this.size() === 0;
+    }
 
     clear(): void {
         this.items = [];
