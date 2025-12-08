@@ -1,50 +1,50 @@
 export class StackArray<T> {
-    private items: T[];
+  private items: T[];
 
-    constructor(items: readonly T[] = []) {
-        this.items = [...items];
-    }
+  constructor(items: readonly T[] = []) {
+    this.items = [...items];
+  }
 
-    push(item: T): void {
-        this.items.push(item);
-    }
+  push(item: T): void {
+    this.items.push(item);
+  }
 
-    pop(): T | undefined {
-        return this.items.pop();
-    }
+  pop(): T | undefined {
+    return this.items.pop();
+  }
 
-    peek(): T | undefined {
-        return this.items[this.items.length - 1];
-    }
+  peek(): T | undefined {
+    return this.items[this.items.length - 1];
+  }
 
-    size(): number {
-        return this.items.length;
-    }
+  size(): number {
+    return this.items.length;
+  }
 
-    isEmpty(): boolean {
-        return this.size() === 0;
-    }
+  isEmpty(): boolean {
+    return this.size() === 0;
+  }
 
-    clear(): void {
-        this.items = [];
-    }
+  clear(): void {
+    this.items = [];
+  }
 
-    contains(item: T, equalsFn?: (a: T, b: T) => boolean): boolean {
-        if (equalsFn) {
-            return this.items.some((value) => equalsFn(value, item));
-        }
-        return this.items.includes(item);
+  contains(item: T, equalsFn?: (a: T, b: T) => boolean): boolean {
+    if (equalsFn) {
+      return this.items.some((value) => equalsFn(value, item));
     }
+    return this.items.includes(item);
+  }
 
-    toArray() {
-        return [...this.items];
-    }
+  toArray() {
+    return [...this.items];
+  }
 
-    static fromArray<U>(array: readonly U[]): StackArray<U> {
-        return new StackArray(array);
-    }
+  static fromArray<U>(array: readonly U[]): StackArray<U> {
+    return new StackArray(array);
+  }
 
-    clone(): StackArray<T> {
-        return new StackArray(this.items);
-    }
+  clone(): StackArray<T> {
+    return new StackArray(this.items);
+  }
 }
