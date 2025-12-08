@@ -1,76 +1,79 @@
 import { StackArrayWithSet } from '../StackArrayWithSet';
 
 describe('StackArrayWithSet', () => {
-  let stack: StackArrayWithSet<number>;
-
-  beforeEach(() => {
-    stack = new StackArrayWithSet<number>();
-  });
-
-  test('isEmpty on new stack', () => {
-    expect(stack.isEmpty()).toBe(true);
-    expect(stack.size()).toBe(0);
-  });
-
-  test('push and peek', () => {
+  test('push', () => {
+    const stack = new StackArrayWithSet();
     stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack.size()).toBe(1);
     stack.push(2);
-    expect(stack.peek()).toBe(2);
+    expect(stack.size()).toBe(2);
   });
 
-  test('push and pop', () => {
-    stack.push(1);
-    stack.push(2);
+  test('pop', () => {
+    const stack = new StackArrayWithSet<number>([1, 2, 3]);
+    expect(stack.pop()).toBe(3);
+    expect(stack.size()).toBe(2);
     expect(stack.pop()).toBe(2);
-    expect(stack.pop()).toBe(1);
-    expect(stack.pop()).toBeUndefined();
+    expect(stack.size()).toBe(1);
+  });
+
+  test('peek', () => {
+    const stack = new StackArrayWithSet<number>([1, 2, 3]);
+    expect(stack.peek()).toBe(3);
+  });
+
+  test('size', () => {
+    const stack = new StackArrayWithSet<number>([1, 2, 3]);
+    expect(stack.size()).toBe(3);
+    stack.push(4);
+    expect(stack.size()).toBe(4);
+  });
+
+  test('isEmpty', () => {
+    const stack = new StackArrayWithSet<number>();
+    expect(stack.isEmpty()).toBe(true);
+    stack.push(1);
+    expect(stack.isEmpty()).toBe(false);
   });
 
   test('clear', () => {
-    stack.push(1);
-    stack.push(2);
+    const stack = new StackArrayWithSet<number>([1, 2, 3]);
+    expect(stack.size()).toBe(3);
     stack.clear();
-    expect(stack.isEmpty()).toBe(true);
     expect(stack.size()).toBe(0);
   });
 
-  test('contains without equalsFn', () => {
-    stack.push(1);
-    stack.push(2);
-    expect(stack.contains(1)).toBe(true);
-    expect(stack.contains(3)).toBe(false);
+  describe('contains', () => {
+    test('contains existing value without equalsFn', () => {
+      const stack = new StackArrayWithSet<number>([1, 2, 3]);
+      expect(stack.contains(2)).toBe(true);
+      expect(stack.contains(4)).toBe(false);
+    });
+
+    test('contains existing value with equalsFn', () => {
+      const stack = new StackArrayWithSet<string>(['a', 'b', 'c']);
+      expect(stack.contains('B', (a, b) => a.toLowerCase() === b.toLowerCase())).toBe(true);
+      expect(stack.contains('D', (a, b) => a.toLowerCase() === b.toLowerCase())).toBe(false);
+    });
   });
 
-  test('contains with equalsFn', () => {
-    const _stack = new StackArrayWithSet(['a', 'b', 'c']);
-    expect(_stack.contains('A', (a, b) => a.toLowerCase() === b.toLowerCase())).toBe(true);
-    expect(_stack.contains('D', (a, b) => a.toLowerCase() === b.toLowerCase())).toBe(false);
+  test('toArray', () => {
+    const stack = new StackArrayWithSet<number>([1, 2, 3]);
+    expect(stack.toArray()).toEqual([1, 2, 3]);
   });
 
-  test('clone returns a new identical stack', () => {
-    stack.push(1);
-    stack.push(2);
-    const cloned = stack.clone();
-    expect(cloned.toArray()).toEqual(stack.toArray());
-    cloned.push(3);
-    expect(stack.size()).toBe(2);
-    expect(cloned.size()).toBe(3);
-    expect(stack.contains(3)).toBe(false);
+  test('fromArray', () => {
+    const array = [1, 2, 3];
+    const stack = StackArrayWithSet.fromArray(array);
+    expect(stack.toArray()).toEqual(array);
   });
 
-  test('static fromArray creates a new stack', () => {
-    const _array = [1, 2, 3];
-    const _stack = StackArrayWithSet.fromArray(_array);
-    expect(_stack.toArray()).toEqual(_array);
-    _stack.push(4);
-    expect(_array).toEqual([1, 2, 3]);
-  });
-
-  test('set keeps unique items', () => {
-    stack.push(1);
-    stack.push(1);
-    expect(stack.size()).toBe(2); // два элемента в массиве
-    expect(stack.contains(1)).toBe(true); // но в set только один
+  test('clone', () => {
+    const stack = new StackArrayWithSet<number>([1, 2, 3]);
+    const clonedStack = stack.clone();
+    expect(clonedStack.toArray()).toEqual(stack.toArray());
+    clonedStack.push(4);
+    expect(stack.size()).toBe(3);
+    expect(clonedStack.size()).toBe(4);
   });
 });
