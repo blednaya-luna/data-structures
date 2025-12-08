@@ -26,6 +26,7 @@ A stack is a **LIFO (Last In, First Out)** data structure.
 - `static fromArray<U>(array: readonly U[]): StackArray<U>` — create a stack from an array.
 
 **Use cases:**
+
 - Undo/redo operations.
 - Postfix notation and expression evaluation.
 - Any scenario where the order of insertion and removal matters.
@@ -41,6 +42,7 @@ A stack is a **LIFO (Last In, First Out)** data structure.
 - `contains(item, equalsFn?)` supports a custom comparison function.
 
 **Use cases:**
+
 - Frequent existence checks for elements in the stack.
 - When you need regular stack behavior plus fast lookup of unique items.
 
@@ -60,3 +62,4 @@ const stackArrayWithSet = new StackArrayWithSet<string>();
 stackArrayWithSet.push('a');
 stackArrayWithSet.push('b');
 console.log(stackArrayWithSet.contains('a')); // true
+```
